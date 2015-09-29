@@ -7,7 +7,7 @@ package adonisarifi.com.popularmoviesstage1.utils;
 public final class Constants {
 
     //To fetch popular movies, you will use the API from themoviedb.org, this is a API KEY .
-    public static final String THEMOVIEDB_API_KEY = "ae49e8f4655ac62bbe09db8687109572";
+    public static final String THEMOVIEDB_API_KEY = "";
 
     public static final String ENDPOINT = "http://api.themoviedb.org/3";
 
