@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Popular Movies, Stage 1</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="str_title_movie_example">Mission Impossible</string>
+    <string name="str_supporttitle_example">Drew Pearce, Will Staples</string>
+    <string name="title_activity_details_screen">DetailsScreen</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_settings_activitry">SettingsActivitry</string>
+    <string name="orderByTop">Order by Top</string>
+    <string name="orderByPopular">Order by Popular</string>
+    <string name="pref_description_orderByPopular">Most popular Films</string>
+    <string name="pref_description_orderByTop">Top Movies</string>
+
+
+    <!-- String for Settings Activity -->
+    <string name="pref_popular">Most Popular</string>
+    <string name="pref_rated">Highest-rated</string>
+    <string name="pref_sort_title">Sorting Movies</string>
+    <string name="pref_sort_key" translatable="false">sortKey</string>
+
+    <string-array name="pref_sort_values">
+        <item>@string/pref_popular</item>
+        <item>@string/pref_rated</item>
+
+    </string-array>
+    <string-array name="pref_sort_options">
+        <item>@string/pref_popular</item>
+        <item>@string/pref_rated</item>
+
+    </string-array>
+</resources>

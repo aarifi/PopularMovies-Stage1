@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#005568ff"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recView_movies"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_column="2"
+
+        android:clipToPadding="false"
+        android:elevation="5dp"
+        android:padding="@dimen/padding_gridView" />
+</LinearLayout>
