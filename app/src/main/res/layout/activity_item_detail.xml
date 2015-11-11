@@ -1,0 +1,199 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textView_details_height">
+
+                <ImageView
+                    android:id="@+id/image_backdrop_path"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:id="@+id/detail_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textView_details_height"
+                    android:background="#a3040304"
+                    android:elevation="@dimen/elevation_4dp"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:paddingLeft="@dimen/details_textView_paddingLeftRight"
+                    android:paddingRight="@dimen/details_textView_paddingLeftRight"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/details_textViewtitle_size"
+                    tools:text="@string/str_title_movie_example" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/padding_2dp">
+
+                <ImageView
+                    android:id="@+id/item_movie_cover"
+                    android:layout_width="@dimen/details_imagecover_width"
+                    android:layout_height="@dimen/details_imagecover_height"
+                    android:layout_below="@+id/activity_detail_title"
+                    android:layout_margin="@dimen/margin_10dp"
+                    android:scaleType="fitXY" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_otherDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtrelasedate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/details_layout_dateraiting_marginLeft"
+                        android:paddingRight="@dimen/textView_date_rait_paddingRigt"
+                        android:paddingTop="@dimen/details_dateraiting_paddingTop"
+                        android:text="@string/relasedate"
+                        android:textSize="@dimen/details_dateraiting_textSize" />
+
+                    <TextView
+                        android:id="@+id/voteAvarage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/details_layout_dateraiting_marginLeft"
+                        android:paddingRight="@dimen/textView_date_rait_paddingRigt"
+                        android:paddingTop="@dimen/details_dateraiting_paddingTop"
+                        android:text="@string/raiting"
+                        android:textSize="@dimen/details_dateraiting_textSize" />
+
+                    <Button
+                        android:id="@+id/btn_favorite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/marksAsFavorite" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/card_view_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_10dp"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/overview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/textview_layout_margin_10dp"
+                        android:fontFamily="sans-serif"
+                        android:paddingRight="@dimen/textView_date_rait_paddingRigt"
+                        android:paddingTop="@dimen/details_textView_paddingTop"
+                        android:textSize="@dimen/details_dateraiting_textSize" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/item_review_photo"
+                        android:background="?android:attr/listDivider" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/card_view_videos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin_10dp"
+                android:paddingBottom="5dp">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_videos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView_videos_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_trailers"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textStyle="bold" />
+
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView_video"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingTop="@dimen/padding_2dp"
+                        android:clipToPadding="false"
+                        android:overScrollMode="never" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/margin_10dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/textView_reviews_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_reviews"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_reviews_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

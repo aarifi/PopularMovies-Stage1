@@ -5,12 +5,14 @@ import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,10 +21,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import adonisarifi.com.popularmoviesstage1.R;
-import adonisarifi.com.popularmoviesstage1.items.MoviesMyAdapter;
+import adonisarifi.com.popularmoviesstage1.adapters.MoviesMyAdapter;
+import adonisarifi.com.popularmoviesstage1.api.ApiClient;
+import adonisarifi.com.popularmoviesstage1.data.MovieData;
 import adonisarifi.com.popularmoviesstage1.model.MoviesModel;
-import adonisarifi.com.popularmoviesstage1.model.rest.ApiClient;
+import adonisarifi.com.popularmoviesstage1.ui.activity.SettingsActivity;
 import adonisarifi.com.popularmoviesstage1.utils.PopularMovieSharedPref;
+import adonisarifi.com.popularmoviesstage1.utils.SupportMethod;
 import butterknife.ButterKnife;
 
 /**
@@ -34,12 +39,15 @@ public class MainFragment extends Fragment implements
     private static final String STATE_SORT = "STATE_SORT";
     String LOG_DEBUG = MainFragment.class.getSimpleName();
     RecyclerView recyclerView;
-    public Callbacks callback;
+
     public String myCurrentOrder;
     public View rootView;
     PopularMovieSharedPref popularMovieSharedPref;
     List<MoviesModel> moviesModelList;
     MoviesModel[] dataForInstanceState;
+    static MovieData movieData;
+
+    public static boolean isBackFromFavorites = false;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -51,7 +59,6 @@ public class MainFragment extends Fragment implements
     public MainFragment() {
 
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +73,7 @@ public class MainFragment extends Fragment implements
 
 
         //Inflate the my custom layout
-        rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        rootView = inflater.inflate(R.layout.list_movies_item, container, false);
         ButterKnife.bind(this, rootView);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recView_movies);
         popularMovieSharedPref = new PopularMovieSharedPref(getActivity().getApplicationContext());
@@ -87,6 +94,7 @@ public class MainFragment extends Fragment implements
             Log.d(LOG_DEBUG, "onStart");
 
         }
+        movieData = new MovieData(getActivity());
         return rootView;
 
     }
@@ -101,10 +109,19 @@ public class MainFragment extends Fragment implements
         // Set layout manager to position the items
         //        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         // First param is number of columns and second param is orientation i.e Vertical or Horizontal
-        StaggeredGridLayoutManager gridLayoutManager =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager gridLayoutManager;
+        if (SupportMethod.isTablet(getActivity())) {
+             gridLayoutManager =
+                    new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+
+        } else {
+             gridLayoutManager =
+                    new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        }
+
         // Attach the layout manager to the recycler view
         recyclerView.setLayoutManager(gridLayoutManager);
+
     }
 
     @Override
@@ -131,11 +148,6 @@ public class MainFragment extends Fragment implements
         super.onDetach();
     }
 
-
-    public interface Callbacks {
-        void onItemSelected(MoviesModel movie);
-    }
-
     public static class MovieLoader extends AsyncTaskLoader<List<MoviesModel>> {
 
         public MovieLoader(Context context) {
@@ -146,14 +158,21 @@ public class MainFragment extends Fragment implements
         public List<MoviesModel> loadInBackground() {
             try {
 
+                List<MoviesModel> moviesModels = new ArrayList<>();
                 PopularMovieSharedPref popularMovieSharedPref = new PopularMovieSharedPref(getContext());
 
                 String order = popularMovieSharedPref.getStatusOrderMovies();
                 if (order.equals(this.getContext().getString(R.string.pref_rated))) {
-                    return ApiClient.getInstance().getTopRated();
+                    moviesModels = ApiClient.getInstance(getContext()).getTopRated();
+                } else if (order.equals(this.getContext().getString(R.string.pref_popular))) {
+                    moviesModels = ApiClient.getInstance(getContext()).getPopular();
                 } else {
-                    return ApiClient.getInstance().getPopular();
+
+                    moviesModels = movieData.getAll();
+
                 }
+
+                return moviesModels;
             } catch (Exception ex) {
 
                 return new ArrayList<>();
@@ -166,6 +185,10 @@ public class MainFragment extends Fragment implements
     public void onResume() {
         super.onResume();
         Log.d(LOG_DEBUG, "onREsume");
+        if (popularMovieSharedPref.getStatusOrderMovies().equals(getString(R.string.favorites))) {
+            isBackFromFavorites = false;
+            getLoaderManager().initLoader(0, null, MainFragment.this).forceLoad();
+        }
     }
 
     @Override
@@ -178,15 +201,13 @@ public class MainFragment extends Fragment implements
     @Override
     public void onStart() {
         super.onStart();
-        popularMovieSharedPref = new PopularMovieSharedPref(getActivity().getApplicationContext());
+
         String order = popularMovieSharedPref.getStatusOrderMovies();
         // reload list if settings are changed
         if (!myCurrentOrder.equals(order)) {
             myCurrentOrder = order;
             loadData();
-
         }
-
     }
 
     public void loadData() {
@@ -194,7 +215,24 @@ public class MainFragment extends Fragment implements
 
     }
 
-    public void setCallback(Callbacks callback) {
-        this.callback = callback;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(getActivity(), SettingsActivity.class);
+            startActivity(intent);
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
+
+
+
+
 }

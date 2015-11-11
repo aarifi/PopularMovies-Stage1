@@ -1,8 +1,7 @@
-package adonisarifi.com.popularmoviesstage1.items;
+package adonisarifi.com.popularmoviesstage1.adapters;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 import adonisarifi.com.popularmoviesstage1.R;
 import adonisarifi.com.popularmoviesstage1.model.MoviesModel;
-import adonisarifi.com.popularmoviesstage1.ui.activity.DetailsScreen;
 import adonisarifi.com.popularmoviesstage1.utils.Constants;
 
 /**
@@ -53,28 +51,28 @@ public class MoviesMyAdapter extends RecyclerView.Adapter<MoviesMyAdapter.MovieV
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
 
-        final MoviesModel moviesModel = moviesModels.get(position);
+
+        MoviesModel moviesModel = moviesModels.get(position);
 
         TextView txtTitle = holder.title;
         txtTitle.setText(moviesModel.getTitle());
         TextView txtsupporttext = holder.txtOverview;
         txtsupporttext.setText(moviesModel.getOverview());
+
         final ImageView imageView = holder.imgMovie;
-        if (moviesModel.getCachedPosterPath() == null) {
-            moviesModel.setCachedPosterPath("http://image.tmdb.org/t/p/" + Constants.LIST_IMAGE_SIZE + "/" + moviesModel.getPosterPath());
+        if (moviesModel.getPoster_pathLocal() == null) {
+            moviesModel.setPoster_pathLocal(Constants.STATIC_IMAGE_URL + Constants.LIST_IMAGE_SIZE + "/" + moviesModel.getPoster_path());
         }
-        Picasso.with(this.context).load(moviesModel.getCachedPosterPath()).into(imageView);
+        if (moviesModel.getBackdrop_pathLocal() == null) {
+            moviesModel.setBackdrop_pathLocal(Constants.STATIC_IMAGE_URL + Constants.DETAILS_IMAGE_SIZE + "/" + moviesModel.getBackdrop_path());
+        }
+        Glide.with(this.context).load(moviesModel.getPoster_pathLocal()).into(imageView);
+
+        final MoviesModel finalMoviesModel = moviesModel;
         holder.setClickListener(new ItemClickListener1() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
-                Intent intent = new Intent(context, DetailsScreen.class);
-                intent.putExtra("Title", moviesModel.getTitle());
-                intent.putExtra("ReleaseDate", moviesModel.getReleaseDate());
-                intent.putExtra("Overview", moviesModel.getOverview());
-                intent.putExtra("VoteAvarage", moviesModel.getVoteAvarage());
-                intent.putExtra("CachedPosterPath", moviesModel.getCachedPosterPath());
-
-                context.startActivity(intent);
+                ((Callbacks) context).onItemSelected(finalMoviesModel);
             }
         });
     }
@@ -83,6 +81,7 @@ public class MoviesMyAdapter extends RecyclerView.Adapter<MoviesMyAdapter.MovieV
     public int getItemCount() {
         return moviesModels == null ? 0 : moviesModels.size();
     }
+
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
@@ -118,8 +117,17 @@ public class MoviesMyAdapter extends RecyclerView.Adapter<MoviesMyAdapter.MovieV
         }
     }
 
+    public Callbacks callback;
 
+    public void setCallback(Callbacks callback) {
+        this.callback = callback;
+    }
+
+    public interface Callbacks {
+        void onItemSelected(MoviesModel movie);
+    }
 }
+
 
 interface ItemClickListener1 {
     void onClick(View view, int position, boolean isLongClick);

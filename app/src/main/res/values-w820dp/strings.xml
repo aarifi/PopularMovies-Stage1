@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_reviews">Reviews:</string>
+    <string name="text_trailers">Trailers:</string>
+    <string name="action_share">Share</string>
+</resources>

@@ -1,0 +1,32 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="padding_gridView">4dp</dimen>
+
+    <dimen name="layout_grid_item_height">270dp</dimen>
+    <dimen name="layout_grid_item_padding">2dp</dimen>
+    <dimen name="cardview_grid_itemRadius">2dp</dimen>
+    <dimen name="cardView_grid_item_Elevation">2sp</dimen>
+    <dimen name="textView_gird_item_title_paddingLeftRightTop">16dp</dimen>
+    <dimen name="textView_gird_item_Overview_paddingLeftRightTop">16dp</dimen>
+    <dimen name="textView_grid_item_title_textSize">16sp</dimen>
+    <dimen name="textView_textSize_grid_item">12sp</dimen>
+    <dimen name="recyclerview_elevation">5dp</dimen>
+    <dimen name="textView_details_height">130dp</dimen>
+    <dimen name="details_textView_paddingLeftRight">48dp</dimen>
+    <dimen name="details_textViewtitle_size">28sp</dimen>
+    <dimen name="elevation_4dp">4dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="padding_2dp">2dp</dimen>
+    <dimen name="details_imagecover_width">170dp</dimen>
+    <dimen name="details_imagecover_height">248dp</dimen>
+    <dimen name="textView_date_rait_paddingRigt">16dp</dimen>
+    <dimen name="details_layout_dateraiting_marginLeft">5dp</dimen>
+    <dimen name="details_dateraiting_paddingTop">10dp</dimen>
+    <dimen name="details_dateraiting_textSize">17sp</dimen>
+    <dimen name="textview_layout_margin_10dp">10dp</dimen>
+    <dimen name="details_textView_paddingTop">10dp</dimen>
+    <dimen name="item_review_padding_right">4dp</dimen>
+    <dimen name="review_item_view_diveder_height" >1dp</dimen>
+</resources>

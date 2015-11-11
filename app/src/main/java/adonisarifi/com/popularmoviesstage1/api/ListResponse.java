@@ -1,4 +1,4 @@
-package adonisarifi.com.popularmoviesstage1.model.rest;
+package adonisarifi.com.popularmoviesstage1.api;
 
 import java.util.List;
 

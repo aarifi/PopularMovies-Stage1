@@ -7,19 +7,34 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import adonisarifi.com.popularmoviesstage1.R;
+import adonisarifi.com.popularmoviesstage1.adapters.MoviesMyAdapter;
 import adonisarifi.com.popularmoviesstage1.model.MoviesModel;
+import adonisarifi.com.popularmoviesstage1.ui.fragment.DetailsFragment;
 import adonisarifi.com.popularmoviesstage1.ui.fragment.MainFragment;
+import adonisarifi.com.popularmoviesstage1.utils.Constants;
 
-public class MainActivity extends AppCompatActivity implements MainFragment.Callbacks {
+public class MainActivity extends AppCompatActivity implements MoviesMyAdapter.Callbacks {
 
     MainFragment fragment;
+    DetailsFragment detailsFragment;
+
+    private boolean onLargScreen;
+    private static final String DETAIL_FRAGMENT_TAG = "detail_fragment_tag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fragment = (MainFragment) getFragmentManager().findFragmentById(R.id.fragment_main);
-        fragment.setCallback(this);
+        fragment = new MainFragment();
+        if (findViewById(R.id.fragment_details_container) != null) {
+            onLargScreen = true;
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_details_container, new DetailsFragment()).commit();
+            }
+        } else {
+            onLargScreen = false;
+        }
     }
 
 
@@ -48,18 +63,28 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Call
             startActivity(intent);
         }
 
-        if (id == R.id.action_refresh) {
-            fragment.loadData();
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
 
     @Override
     public void onItemSelected(MoviesModel movie) {
-        Intent intent = new Intent(this, DetailsScreen.class);
-        intent.putExtra("movie", movie);
-        startActivity(intent);
+
+        if (onLargScreen) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(Constants.MOVIEMODEL_INTENTEXTRA, movie);
+
+            DetailsFragment detailsFragment = new DetailsFragment();
+            detailsFragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_details_container, detailsFragment, DETAIL_FRAGMENT_TAG)
+                    .commit();
+
+        } else {
+            Intent intent = new Intent(this, DetailsActivity.class);
+            intent.putExtra(Constants.MOVIEMODEL_INTENTEXTRA, movie);
+            startActivity(intent);
+        }
+
     }
 }

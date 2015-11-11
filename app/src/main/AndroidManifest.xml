@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.DetailsScreen"
+            android:name=".ui.activity.DetailsActivity"
             android:label="@string/title_activity_details_screen"
             android:parentActivityName=".ui.activity.MainActivity" >
             <meta-data

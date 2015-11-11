@@ -1,6 +1,7 @@
 package adonisarifi.com.popularmoviesstage1.utils;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -24,5 +25,11 @@ public class SupportMethod {
 
     public static String getPackageNameOfAplication() {
         return "adonisarifi.com.popularmoviesstage1";
+    }
+
+    public static boolean isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 }

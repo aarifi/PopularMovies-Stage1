@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingRight="@dimen/item_review_padding_right">
+
+        <ImageView
+            android:id="@+id/item_review_photo"
+            android:layout_width="@dimen/image_review_photo_width"
+            android:layout_height="@dimen/image_review_photo_height"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="@dimen/image_review_photo_layout_margin"
+            android:fontFamily="sans-serif"
+
+            android:src="@mipmap/ic_account_circle_black_24dp" />
+
+        <TextView
+            android:id="@+id/txt_item_review_author_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/item_review_photo"
+            android:fontFamily="sans-serif-medium"
+            android:paddingTop="@dimen/review_author_paddingTop"
+            android:singleLine="true"
+            android:text="@string/author"
+            android:textColor="@color/abc_secondary_text_material_light" />
+
+        android:textSize="@dimen/review_author_title_textSize" />
+
+        <TextView
+            android:id="@+id/txt_item_review_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_item_review_author_title"
+            android:layout_toRightOf="@+id/item_review_photo"
+            android:fontFamily="sans-serif"
+            android:text="@string/plain_text_for_preview"
+            android:textSize="@dimen/review_desc_textSize"
+            android:textColor="@color/abc_secondary_text_material_light"
+            android:paddingBottom="5dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/review_item_view_diveder_height"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/item_review_photo"
+            android:background="@color/divider" />
+
+
+    </RelativeLayout>
+</LinearLayout>
+
+
+
+

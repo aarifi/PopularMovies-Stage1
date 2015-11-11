@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/item_video_photo"
+            android:layout_width="@dimen/image_review_photo_width"
+            android:layout_height="@dimen/image_review_photo_height"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="@dimen/image_review_photo_layout_margin"
+            android:fontFamily="sans-serif"
+            android:src="@mipmap/ic_play_circle_outline_black_24dp" />
+
+        <TextView
+            android:id="@+id/txt_item_video_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/item_video_photo"
+            android:fontFamily="sans-serif-medium"
+            android:singleLine="true"
+            android:layout_centerVertical="true"
+            android:text="@string/author"
+            android:textSize="@dimen/review_author_title_textSize" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:paddingTop="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/item_review_photo"
+            android:background="?android:attr/listDivider" />
+
+    </RelativeLayout>
+</LinearLayout>
+
+
+
+
